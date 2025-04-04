@@ -1,7 +1,11 @@
+import org.jlleitschuh.gradle.ktlint.KtlintExtension
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktor)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ktlint)
 }
 
 group = "com.example"
@@ -35,4 +39,18 @@ dependencies {
 
     testImplementation(libs.kotlin.test.junit)
     testImplementation(libs.ktor.server.test.host)
+}
+
+configure<KtlintExtension> {
+    version.set("1.5.0")
+
+    android.set(false)
+    outputToConsole.set(true)
+    ignoreFailures.set(false)
+    enableExperimentalRules.set(false)
+
+    reporters { reporter(ReporterType.PLAIN_GROUP_BY_FILE) }
+
+    verbose.set(false)
+    debug.set(false)
 }
