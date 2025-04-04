@@ -1,9 +1,32 @@
 services:
   app:
-    container_name: arr-container
+    container_name: arr-app
     image: addyi/arr:latest
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        DB_URL: ${DB_URL}
+        PG_USER: ${PG_USER}
+        PG_PASSWORD: ${PG_PASSWORD}
     ports:
       - "80:8080" # HOST_PORT:CONTAINER_PORT
+    env_file: .env
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: arr-postgres
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    env_file: .env
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data: { }
