@@ -1,9 +1,17 @@
-package com.example.dto
+package com.example.route.users.model
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class User(
+data class RequestUser(
+    val name: Name,
+    val email: Email,
+    val age: Age,
+)
+
+@Serializable
+data class ResponseUser(
+    val id: String,
     val name: Name,
     val email: Email,
     val age: Age,
@@ -38,4 +46,4 @@ value class Age(val value: Int) {
 
 
 @Serializable
-data class Users(val users: List<User>)
+data class Users(val users: List<ResponseUser>)
