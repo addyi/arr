@@ -18,11 +18,8 @@ import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
 import java.util.UUID
 
-
 fun Application.configureUserRouting(userRepository: UserRepository) {
-
     routing {
-
         route("/user") {
             post {
                 val newUser = call.getNewUser()
@@ -31,7 +28,8 @@ fun Application.configureUserRouting(userRepository: UserRepository) {
                 val user = runCatching { userRepository.createUser(newUser) }.getOrNull()
                     ?: return@post call.respond(
                         HttpStatusCode.Conflict,
-                        "Email already exists"// FIXME ERROR MESSAGE
+                        // FIXME ERROR MESSAGE
+                        "Email already exists",
                     )
                 call.respond(HttpStatusCode.Created, user)
             }
@@ -40,7 +38,8 @@ fun Application.configureUserRouting(userRepository: UserRepository) {
                 val id = call.getUserUUID()
                     ?: return@get call.respond(
                         HttpStatusCode.BadRequest,
-                        "Invalid user ID" // FIXME ERROR MESSAGE
+                        // FIXME ERROR MESSAGE
+                        "Invalid user ID",
                     )
 
                 val user = userRepository.getUserById(id)
@@ -55,7 +54,8 @@ fun Application.configureUserRouting(userRepository: UserRepository) {
                 val email = call.getUserEmail()
                     ?: return@get call.respond(
                         HttpStatusCode.BadRequest,
-                        "Invalid email format" // FIXME ERROR MESSAGE
+                        // FIXME ERROR MESSAGE
+                        "Invalid email format",
                     )
 
                 val user = userRepository.getUserByEmail(email)
@@ -64,7 +64,8 @@ fun Application.configureUserRouting(userRepository: UserRepository) {
                 } else {
                     call.respond(
                         HttpStatusCode.NotFound,
-                        "User not found" // FIXME ERROR MESSAGE
+                        // FIXME ERROR MESSAGE
+                        "User not found",
                     )
                 }
             }
@@ -73,7 +74,8 @@ fun Application.configureUserRouting(userRepository: UserRepository) {
                 val id = call.getUserUUID()
                     ?: return@put call.respond(
                         HttpStatusCode.BadRequest,
-                        "Invalid user ID" // FIXME ERROR MESSAGE
+                        // FIXME ERROR MESSAGE
+                        "Invalid user ID",
                     )
 
                 val newUser = call.getNewUser()
@@ -84,17 +86,18 @@ fun Application.configureUserRouting(userRepository: UserRepository) {
                 } else {
                     call.respond(
                         HttpStatusCode.NotFound,
-                        "User not found"// FIXME ERROR MESSAGE
+                        // FIXME ERROR MESSAGE
+                        "User not found",
                     )
                 }
-
             }
 
             delete("/{id}") {
                 val id = call.getUserUUID()
                     ?: return@delete call.respond(
                         HttpStatusCode.BadRequest,
-                        "Invalid user ID" // FIXME ERROR MESSAGE
+                        // FIXME ERROR MESSAGE
+                        "Invalid user ID",
                     )
 
                 if (userRepository.deleteUser(id)) {
@@ -102,7 +105,8 @@ fun Application.configureUserRouting(userRepository: UserRepository) {
                 } else {
                     call.respond(
                         HttpStatusCode.NotFound,
-                        "User not found" // FIXME ERROR MESSAGE
+                        // FIXME ERROR MESSAGE
+                        "User not found",
                     )
                 }
             }
@@ -112,7 +116,8 @@ fun Application.configureUserRouting(userRepository: UserRepository) {
                     ?.let { runCatching { Age(it) } }?.getOrNull()
                     ?: return@delete call.respond(
                         HttpStatusCode.BadRequest,
-                        "Invalid age format" // FIXME ERROR MESSAGE
+                        // FIXME ERROR MESSAGE
+                        "Invalid age format",
                     )
 
                 val numberOfDeletedUsers = userRepository.deleteUsersAboveAge(age)
@@ -121,7 +126,6 @@ fun Application.configureUserRouting(userRepository: UserRepository) {
         }
 
         route("/users") {
-
             get {
                 call.respond(Users(userRepository.getAllUsers()))
             }
@@ -131,7 +135,8 @@ fun Application.configureUserRouting(userRepository: UserRepository) {
                     ?.let { runCatching { Age(it) } }?.getOrNull()
                     ?: return@get call.respond(
                         HttpStatusCode.BadRequest,
-                        "Invalid age format" // FIXME ERROR MESSAGE
+                        // FIXME ERROR MESSAGE
+                        "Invalid age format",
                     )
 
                 call.respond(Users(userRepository.getUsersByAge(age)))
@@ -151,6 +156,4 @@ fun RoutingCall.getUserUUID(): UUID? = parameters["id"]
 fun RoutingCall.getUserEmail(): Email? = parameters["email"]
     ?.let { runCatching { Email(it) }.getOrNull() }
 
-suspend fun RoutingCall.getNewUser(): RequestUser? =
-    runCatching { receive<RequestUser>() }.getOrNull()
-
+suspend fun RoutingCall.getNewUser(): RequestUser? = runCatching { receive<RequestUser>() }.getOrNull()
