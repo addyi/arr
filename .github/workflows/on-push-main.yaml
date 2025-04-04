@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - main
+  # Manual trigger
+  workflow_dispatch:
+
+# Cancels in-progress workflows if a new one is triggered
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   build:
