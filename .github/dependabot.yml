@@ -1,0 +1,41 @@
+version: 2
+updates:
+  - package-ecosystem: gradle
+    directory: "/"
+    registries: "*"
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 4
+    reviewers:
+      - addyi
+    labels:
+      - DevOps
+
+    # Group updates together
+    groups:
+      kotlin:
+        applies-to: version-updates
+        dependency-type: production
+        patterns:
+          - "androidx.compose.compiler:compiler"
+          - "org.jetbrains.kotlin*"
+          - "com.google.devtools.ksp"
+      ktor:
+        applies-to: version-updates
+        dependency-type: production
+        patterns:
+          - "io.ktor*"
+          - "org.jetbrains.exposed*"
+          - "ch.qos.logback*"
+          - "org.postgresql*"
+      lint:
+        applies-to: version-updates
+        dependency-type: production
+        patterns:
+          - "io.gitlab.arturbosch.detekt*"
+          - "org.jlleitschuh.gradle.ktlint*"
+      security-group:
+        applies-to: security-updates
+        dependency-type: production
+
+    rebase-strategy: "auto"
