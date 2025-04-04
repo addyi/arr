@@ -10,7 +10,8 @@
 
 To run the project, you need to set up the following environment variables:
 
-- `DB_URL`: The URL of the database.
+- `APP_PORT`: The port on which the application will run.
+- `DB_HOST`: The hostname of the PostgreSQL database e.g. localhost or the `container_name` of the database.
 - `DB_NAME`: The name of the database.
 - `PG_USER`: The username for the PostgreSQL database.
 - `PG_PASSWORD`: The password for the PostgreSQL database.
@@ -18,16 +19,12 @@ To run the project, you need to set up the following environment variables:
 You can set these variables in a `.env` file in the root directory of the project:
 
 ```dotenv
-DB_URL=your_database_url
+APP_PORT=8080
+DB_HOST=your_database_host
 DB_NAME=your_database_name
 PG_USER=your_postgres_user
 PG_PASSWORD=your_postgres_password
 ```
-
-The database url should look something like this:
-
-- `jdbc:postgresql://localhost:5432/your_database`
-- `jdbc:postgresql://db_container_name:5432/your_database`
 
 You may create a `.env.local` file to override the default `.env` file.
 This is useful for local development or testing environments outside a Docker container.
