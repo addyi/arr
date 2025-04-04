@@ -9,6 +9,9 @@ on:
     branches:
       - testci
 
+permissions:
+  contents: write
+
 jobs:
   dependency-submission:
     runs-on: ubuntu-latest
