@@ -24,6 +24,7 @@ logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "lo
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgres-version" }
 
 [plugins]
+detekt = "io.gitlab.arturbosch.detekt:1.23.8"
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-version" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-serialization-version" }
 ktlint = "org.jlleitschuh.gradle.ktlint:12.2.0"

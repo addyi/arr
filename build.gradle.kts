@@ -1,3 +1,5 @@
+import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
 import org.jlleitschuh.gradle.ktlint.KtlintExtension
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
@@ -6,6 +8,7 @@ plugins {
     alias(libs.plugins.ktor)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.detekt)
 }
 
 group = "com.example"
@@ -53,4 +56,27 @@ configure<KtlintExtension> {
 
     verbose.set(false)
     debug.set(false)
+}
+
+detekt {
+    source.setFrom(".") // The directories where detekt looks for source files.
+
+    buildUponDefaultConfig = true
+    config.setFrom("${rootProject.rootDir}/detekt.yml")
+
+    parallel = true // Builds the AST in parallel.
+
+    baseline = file("${rootProject.rootDir}/detekt-baseline.xml") // TODO get rid of baseline as fast as possible
+
+    basePath = projectDir.absolutePath
+
+    allRules = true // Turns on all the rules. Default: false
+}
+
+tasks.withType<Detekt>().configureEach {
+    exclude("**/build/**")
+}
+
+tasks.withType<DetektCreateBaselineTask>().configureEach {
+    exclude("**/build/**")
 }

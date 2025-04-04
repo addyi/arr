@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>CyclomaticComplexMethod:UserRoute.kt$fun Application.configureUserRouting(userRepository: UserRepository)</ID>
+    <ID>LongMethod:UserRoute.kt$fun Application.configureUserRouting(userRepository: UserRepository)</ID>
+    <ID>MagicNumber:UserDAO.kt$UserTable$255</ID>
+    <ID>MagicNumber:UserDTO.kt$Age$150</ID>
+  </CurrentIssues>
+</SmellBaseline>
