@@ -28,3 +28,7 @@ jobs:
     - name: Run ktlint check
       run: ./gradlew ktlintCheck
       timeout-minutes: 5
+
+    - name: Run detekt
+      run: ./gradlew detekt
+      timeout-minutes: 5
