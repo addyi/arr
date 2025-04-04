@@ -1,0 +1,28 @@
+name: Nightly Dependency Submission
+
+on:
+  schedule:
+    - cron: '0 0 1 * *' # At 12:00 AM, on day 1 of the month
+  # Manual trigger
+  workflow_dispatch:
+  push:
+    branches:
+      - testci
+
+jobs:
+  dependency-submission:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - name: Generate and submit dependency graph
+        uses: gradle/actions/dependency-submission@v4
