@@ -27,5 +27,5 @@ postgresql = { module = "org.postgresql:postgresql", version.ref = "postgres-ver
 detekt = "io.gitlab.arturbosch.detekt:1.23.8"
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-version" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-serialization-version" }
-ktlint = "org.jlleitschuh.gradle.ktlint:12.2.0"
+ktlint = "org.jlleitschuh.gradle.ktlint:12.3.0"
 ktor = { id = "io.ktor.plugin", version.ref = "ktor-version" }
